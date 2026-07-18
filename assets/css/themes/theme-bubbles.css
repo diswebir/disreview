@@ -1,0 +1,22 @@
+/* Theme: Bubbles - chat-like rounded bubbles with offset avatar. */
+.disreview-active .comment,
+.disreview-active .review,
+.disreview-active .edd-review {
+	border-radius: 22px 22px 22px 4px;
+	border: none;
+	background: rgba(var(--dr-primary-rgb), .06);
+	box-shadow: none;
+}
+.disreview-active .comment:hover,
+.disreview-active .review:hover,
+.disreview-active .edd-review:hover {
+	transform: translateX(-3px);
+	box-shadow: 0 8px 20px rgba(var(--dr-primary-rgb), .14);
+}
+.disreview-active .avatar {
+	border-radius: 40% 60% 55% 45%;
+}
+.disreview-active .comment-author,
+.disreview-active .edd-review-meta .author {
+	color: var(--dr-primary);
+}

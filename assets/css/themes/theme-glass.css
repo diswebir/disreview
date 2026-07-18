@@ -1,0 +1,21 @@
+/* Theme: Glass - frosted glass effect with soft blur. */
+.disreview-active .comment,
+.disreview-active .review,
+.disreview-active .edd-review {
+	background: rgba(255, 255, 255, .55);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, .6);
+	box-shadow: 0 8px 30px rgba(20, 25, 40, .06);
+}
+.disreview-active .avatar {
+	border: 2px solid rgba(255, 255, 255, .8);
+	box-shadow: 0 4px 14px rgba(var(--dr-primary-rgb), .3);
+}
+.disreview-active #respond,
+.disreview-active #review_form_wrapper,
+.disreview-active .edd-review-form {
+	background: rgba(255, 255, 255, .6);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+}

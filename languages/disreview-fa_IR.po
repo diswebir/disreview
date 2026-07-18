@@ -1,0 +1,83 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: DisReview 1.0.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa_IR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "DisReview"
+msgstr "DisReview"
+
+msgid "تنظیمات استایل نظرات و کامنت‌ها"
+msgstr "تنظیمات استایل نظرات و کامنت‌ها"
+
+msgid "ظاهر بخش نظرات وردپرس، ووکامرس و EDD را با یک کلیک زیباتر کنید."
+msgstr "ظاهر بخش نظرات وردپرس، ووکامرس و EDD را با یک کلیک زیباتر کنید."
+
+msgid "۱. انتخاب تم نظرات"
+msgstr "۱. انتخاب تم نظرات"
+
+msgid "۲. فعال‌سازی روی پلتفرم‌ها"
+msgstr "۲. فعال‌سازی روی پلتفرم‌ها"
+
+msgid "۳. شخصی‌سازی"
+msgstr "۳. شخصی‌سازی"
+
+msgid "نظرات هسته وردپرس"
+msgstr "نظرات هسته وردپرس"
+
+msgid "ووکامرس (نظرات محصولات)"
+msgstr "ووکامرس (نظرات محصولات)"
+
+msgid "Easy Digital Downloads"
+msgstr "Easy Digital Downloads"
+
+msgid "افزونه ووکامرس فعال نیست"
+msgstr "افزونه ووکامرس فعال نیست"
+
+msgid "افزونه EDD فعال نیست"
+msgstr "افزونه EDD فعال نیست"
+
+msgid "رنگ اصلی (برند)"
+msgstr "رنگ اصلی (برند)"
+
+msgid "گردی گوشه‌ها (px)"
+msgstr "گردی گوشه‌ها (px)"
+
+msgid "فونت سفارشی (اختیاری)"
+msgstr "فونت سفارشی (اختیاری)"
+
+msgid "نمایش امتیاز میانگین"
+msgstr "نمایش امتیاز میانگین"
+
+msgid "حالت تاریک خودکار (بر اساس سیستم)"
+msgstr "حالت تاریک خودکار (بر اساس سیستم)"
+
+msgid "اعمال استایل در موبایل"
+msgstr "اعمال استایل در موبایل"
+
+msgid "ذخیره تنظیمات"
+msgstr "ذخیره تنظیمات"
+
+msgid "پیش‌نمایش زنده"
+msgstr "پیش‌نمایش زنده"
+
+msgid "مینیمال (Minimal)"
+msgstr "مینیمال (Minimal)"
+
+msgid "کارتی (Cards)"
+msgstr "کارتی (Cards)"
+
+msgid "حبابی (Bubbles)"
+msgstr "حبابی (Bubbles)"
+
+msgid "شیشه‌ای مدرن (Glass)"
+msgstr "شیشه‌ای مدرن (Glass)"
+
+msgid "تیره و لوکس (Dark Elegant)"
+msgstr "تیره و لوکس (Dark Elegant)"
+
+msgid "گرادیانی (Gradient)"
+msgstr "گرادیانی (Gradient)"
