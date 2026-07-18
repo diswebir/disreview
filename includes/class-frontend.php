@@ -23,6 +23,7 @@ class DisReview_Frontend {
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_filter( 'body_class', array( $this, 'add_body_class' ) );
+		add_filter( 'wp', array( $this, 'register_counters' ) );
 
 		// Optional average rating badge above WooCommerce / EDD reviews.
 		if ( 'yes' === DisReview::get_setting( 'enable_avg', 'yes' ) ) {
@@ -74,16 +75,25 @@ class DisReview_Frontend {
 	 * @return bool
 	 */
 	private function should_load() {
-		if ( DisReview::is_wp_core_enabled() && ( is_singular() && ( comments_open() || have_comments() || get_comments_number() ) ) ) {
+		if ( DisReview::is_wp_core_enabled() && ( is_singular() && ( comments_open() || have_comments() || get_comments_number( get_the_ID() ) ) ) ) {
 			return true;
 		}
 		if ( DisReview::is_wc_enabled() && function_exists( 'is_product' ) && is_product() ) {
 			return true;
 		}
-		if ( DisReview::is_edd_enabled() && function_exists( 'is_singular' ) && is_singular( array( 'download' ) ) ) {
+		if ( DisReview::is_edd_enabled() && is_singular( array( 'download' ) ) ) {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Register the comment-count filter once we know the request context.
+	 */
+	public function register_counters() {
+		if ( 'yes' === DisReview::get_setting( 'show_count', 'yes' ) ) {
+			add_filter( 'the_title', array( $this, 'append_comment_count' ), 10, 2 );
+		}
 	}
 
 	/**
@@ -134,13 +144,10 @@ class DisReview_Frontend {
 		// High-priority custom CSS override (last, so it wins).
 		$custom = DisReview::get_setting( 'custom_css', '' );
 		if ( $custom ) {
-			wp_add_inline_style( 'disreview-theme', $custom );
+			$handle = isset( $themes[ $theme ] ) ? 'disreview-theme' : 'disreview-base';
+			wp_add_inline_style( $handle, $custom );
 		}
 
-		// Styled comment counter near the title.
-		if ( 'yes' === DisReview::get_setting( 'show_count', 'yes' ) ) {
-			add_filter( 'the_title', array( $this, 'append_comment_count' ), 10, 2 );
-		}
 	}
 
 	/**
@@ -168,7 +175,8 @@ class DisReview_Frontend {
 		$css .= '}';
 
 		if ( 'yes' === $dark ) {
-			$css .= '@media (prefers-color-scheme: dark){:root{--dr-bg:#0f1115;--dr-surface:#1a1d23;--dr-text:#e6e6e6;--dr-muted:#9aa0a6;--dr-border:rgba(255,255,255,.1);}}';
+			$dark_muted = $muted ? esc_attr( $muted ) : '#9aa0a6';
+			$css .= '@media (prefers-color-scheme: dark){:root{--dr-bg:#0f1115;--dr-surface:#1a1d23;--dr-text:#e6e6e6;--dr-muted:' . $dark_muted . ';--dr-border:rgba(255,255,255,.1);}}';
 		}
 
 		wp_add_inline_style( 'disreview-base', $css );
@@ -200,7 +208,6 @@ class DisReview_Frontend {
 
 		return $title . ' <span class="dr-count-badge" title="' . esc_attr( $count . ' ' . $label ) . '">' . esc_html( $count ) . '</span>';
 	}
-
 
 	/**
 	 * Render a rating breakdown bar above WooCommerce reviews.

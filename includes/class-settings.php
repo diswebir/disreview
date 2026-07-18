@@ -79,7 +79,7 @@ class DisReview_Settings {
 
 		$clean['primary_color'] = sanitize_hex_color( $input['primary_color'] ?? $defaults['primary_color'] );
 		$clean['star_color']    = sanitize_hex_color( $input['star_color'] ?? $defaults['star_color'] );
-		$clean['muted_color']   = sanitize_hex_color( $input['muted_color'] ?? '' );
+		$clean['muted_color']   = ( $input['muted_color'] ?? '' ) ? sanitize_hex_color( $input['muted_color'] ) : '';
 		$clean['font_family']   = sanitize_text_field( $input['font_family'] ?? '' );
 		$clean['border_radius'] = absint( $input['border_radius'] ?? $defaults['border_radius'] );
 		// Custom CSS is output escaped via wp_strip_all_tags on the frontend; keep raw for the user.
