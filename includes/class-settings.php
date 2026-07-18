@@ -37,6 +37,8 @@ class DisReview_Settings {
 			'enable_wc'     => 'no',
 			'enable_edd'    => 'no',
 			'primary_color' => '#4f46e5',
+			'star_color'    => '#f59e0b',
+			'muted_color'   => '',
 			'font_family'   => '',
 			'border_radius' => '14',
 			'enable_dark'   => 'no',
@@ -76,6 +78,8 @@ class DisReview_Settings {
 		$clean['auto_detect']   = isset( $input['auto_detect'] ) ? 'yes' : 'no';
 
 		$clean['primary_color'] = sanitize_hex_color( $input['primary_color'] ?? $defaults['primary_color'] );
+		$clean['star_color']    = sanitize_hex_color( $input['star_color'] ?? $defaults['star_color'] );
+		$clean['muted_color']   = sanitize_hex_color( $input['muted_color'] ?? '' );
 		$clean['font_family']   = sanitize_text_field( $input['font_family'] ?? '' );
 		$clean['border_radius'] = absint( $input['border_radius'] ?? $defaults['border_radius'] );
 		// Custom CSS is output escaped via wp_strip_all_tags on the frontend; keep raw for the user.

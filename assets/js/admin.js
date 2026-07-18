@@ -75,3 +75,12 @@
 	});
 
 })(jQuery);
+
+		// Settings / Help tabs.
+		$('.dr-tab').on('click', function () {
+			var tab = $(this).data('tab');
+			$('.dr-tab').removeClass('is-active');
+			$(this).addClass('is-active');
+			$('.dr-tab-panel').removeClass('is-active');
+			$('#dr-tab-' + tab).addClass('is-active');
+		});

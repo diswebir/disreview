@@ -22,7 +22,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<form method="post" action="options.php" class="disreview-form">
 		<?php settings_fields( 'disreview_settings_group' ); ?>
 
-		<div class="dr-grid">
+		<div class="dr-tabs">
+			<button type="button" class="dr-tab is-active" data-tab="settings"><?php echo esc_html__( 'تنظیمات', 'disreview' ); ?></button>
+			<button type="button" class="dr-tab" data-tab="help"><?php echo esc_html__( 'راهنما', 'disreview' ); ?></button>
+		</div>
+
+		<div class="dr-tab-panel is-active" id="dr-tab-settings">
+			<div class="dr-grid">
 			<!-- Main column -->
 			<div class="dr-card dr-main">
 				<h2><?php echo esc_html__( '۱. انتخاب تم نظرات', 'disreview' ); ?></h2>
@@ -77,6 +83,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<input type="text" id="dr-primary" name="disreview_settings[primary_color]" class="dr-color" value="<?php echo esc_attr( $settings['primary_color'] ); ?>">
 					</div>
 
+						<div class="dr-field">
+							<label for="dr-star"><?php echo esc_html__( 'رنگ ستاره‌ها', 'disreview' ); ?></label>
+							<input type="text" id="dr-star" name="disreview_settings[star_color]" class="dr-color" value="<?php echo esc_attr( $settings['star_color'] ); ?>">
+						</div>
+
+						<div class="dr-field">
+							<label for="dr-muted"><?php echo esc_html__( 'رنگ متن ملایم (اختیاری)', 'disreview' ); ?></label>
+							<input type="text" id="dr-muted" name="disreview_settings[muted_color]" class="dr-color" value="<?php echo esc_attr( $settings['muted_color'] ); ?>">
+						</div>
+
 					<div class="dr-field">
 						<label for="dr-radius"><?php echo esc_html__( 'گردی گوشه‌ها (px)', 'disreview' ); ?></label>
 						<input type="number" id="dr-radius" name="disreview_settings[border_radius]" min="0" max="40" value="<?php echo esc_attr( $settings['border_radius'] ); ?>">
@@ -113,7 +129,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<?php submit_button( __( 'ذخیره تنظیمات', 'disreview' ), 'dr-btn' ); ?>
-			</div>
+			</div><!-- /.dr-main -->
+			</div><!-- /.dr-tab-panel settings -->
+
+			<div class="dr-tab-panel" id="dr-tab-help">
+				<div class="dr-card">
+					<h2><?php echo esc_html__( 'راهنمای DisReview', 'disreview' ); ?></h2>
+					<ol class="dr-help-list">
+						<li><?php echo esc_html__( 'از تب تنظیمات، یکی از ۸ تم را انتخاب کنید.', 'disreview' ); ?></li>
+						<li><?php echo esc_html__( 'پلتفرم‌های مقصد (وردپرس/ووکامرس/EDD) را فعال کنید؛ گزینه «اعمال خودکار» ووکامرس و EDD را وقتی نصب باشند خودکار پوشش می‌دهد.', 'disreview' ); ?></li>
+						<li><?php echo esc_html__( 'رنگ اصلی، فونت و گردی گوشه‌ها را سفارشی کنید.', 'disreview' ); ?></li>
+						<li><?php echo esc_html__( 'از بخش بکاپ می‌توانید تنظیمات را خروجی/ورودی (JSON) بگیرید.', 'disreview' ); ?></li>
+						<li><?php echo esc_html__( 'شورت‌کد [disreview_top] نظرات برتر را هرجا نمایش می‌دهد.', 'disreview' ); ?></li>
+						<li><?php echo esc_html__( 'با فعال‌سازی «بازنویسی توسط قالب کودک» فایل تم را در مسیر child-theme/disreview/theme-NAME.css قرار دهید.', 'disreview' ); ?></li>
+					</ol>
+					<h2><?php echo esc_html__( 'پشتیبانی', 'disreview' ); ?></h2>
+					<p class="dr-note"><?php echo esc_html__( 'این افزونه رایگان و متن‌باز است. برای گزارش مشکل از بخش پشتیبانی مخزن استفاده کنید.', 'disreview' ); ?></p>
+				</div>
+			</div><!-- /.dr-tab-panel help -->
 
 			<!-- Live preview column -->
 			<div class="dr-card dr-preview">
@@ -153,6 +186,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 				</div>
 			</div>
-		</div>
+			</div><!-- /.dr-grid -->
 	</form>
 </div>

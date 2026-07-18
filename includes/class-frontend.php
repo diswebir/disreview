@@ -148,6 +148,8 @@ class DisReview_Frontend {
 	 */
 	private function add_dynamic_css() {
 		$primary = DisReview::get_setting( 'primary_color', '#4f46e5' );
+		$star    = DisReview::get_setting( 'star_color', '#f59e0b' );
+		$muted   = DisReview::get_setting( 'muted_color', '' );
 		$radius  = DisReview::get_setting( 'border_radius', 14 );
 		$font    = DisReview::get_setting( 'font_family', '' );
 		$dark    = DisReview::get_setting( 'enable_dark', 'no' );
@@ -155,9 +157,13 @@ class DisReview_Frontend {
 		$css  = ':root{';
 		$css .= '--dr-primary:' . esc_attr( $primary ) . ';';
 		$css .= '--dr-primary-rgb:' . $this->hex_to_rgb( $primary ) . ';';
+		$css .= '--dr-star:' . esc_attr( $star ) . ';';
 		$css .= '--dr-radius:' . absint( $radius ) . 'px;';
 		if ( $font ) {
 			$css .= '--dr-font:' . esc_attr( $font ) . ';';
+		}
+		if ( $muted ) {
+			$css .= '--dr-muted:' . esc_attr( $muted ) . ';';
 		}
 		$css .= '}';
 

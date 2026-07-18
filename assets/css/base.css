@@ -192,3 +192,26 @@
 .disreview-active .dr-rating-fill { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--dr-primary), #ec4899); }
 .disreview-active .dr-rating-num { width: 26px; text-align: left; }
 
+
+/* Threaded / nested replies */
+.disreview-active .comment .children,
+.disreview-active .comment ul.children,
+.disreview-active ol.commentlist .children {
+	list-style: none;
+	margin: 14px 0 0;
+	padding: 0 0 0 18px;
+	border-right: 2px solid rgba(var(--dr-primary-rgb), .18);
+}
+.disreview-active .comment .children .comment,
+.disreview-active .comment ul.children .comment {
+	margin-top: 12px;
+}
+.disreview-active .comment .children .children {
+	border-right-color: rgba(var(--dr-primary-rgb), .1);
+}
+[dir="ltr"] .disreview-active .comment .children,
+[dir="ltr"] .disreview-active .comment ul.children {
+	padding: 0 0 0 18px;
+	border-right: none;
+	border-left: 2px solid rgba(var(--dr-primary-rgb), .18);
+}
