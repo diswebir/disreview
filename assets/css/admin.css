@@ -172,3 +172,10 @@
 /* Entrance animation */
 .dr-anim-in { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
 .dr-anim-in.is-visible { opacity: 1; transform: none; }
+
+.dr-preview-tools { display: flex; gap: 8px; margin: 14px 0 10px; }
+.dr-view-btn { width: 38px; height: 32px; border: 1px solid #d8dbe3; background: #fff; border-radius: 8px; cursor: pointer; font-size: 16px; line-height: 1; }
+.dr-view-btn.is-active { border-color: #4f46e5; background: #eef0fb; }
+.dr-preview-frame.dr-preview-mobile { max-width: 360px; margin: 0 auto; }
+.dr-check-full { flex-basis: 100%; }
+

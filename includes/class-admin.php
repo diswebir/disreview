@@ -27,11 +27,32 @@ class DisReview_Admin {
 		public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+		add_action( 'admin_notices', array( $this, 'activation_notice' ) );
 	}
 
 	/**
 	 * Add the plugin menu under Settings.
 	 */
+
+	/**
+	 * Show a one-time notice after activation linking to settings.
+	 */
+	public function activation_notice() {
+		$screen = get_current_screen();
+		if ( $screen && 'settings_page_disreview' === $screen->id ) {
+			return;
+		}
+		if ( get_option( 'disreview_activation_notice_dismissed' ) ) {
+			return;
+		}
+		$url = admin_url( 'options-general.php?page=disreview' );
+		printf(
+			'<div class="notice notice-info is-dismissible"><p><strong>DisReview</strong> &mdash; %1$s <a href="%2$s">%3$s</a></p></div>',
+			esc_html__( 'آماده‌ست تا نظرات سایت شما را زیباتر کند.', 'disreview' ),
+			esc_url( $url ),
+			esc_html__( 'برو به تنظیمات', 'disreview' )
+		);
+	}
 	public function add_menu() {
 		$this->hook = add_options_page(
 			__( 'DisReview', 'disreview' ),
@@ -106,6 +127,7 @@ class DisReview_Admin {
 	 * Render the settings page.
 	 */
 	public function render_page() {
+		update_option( 'disreview_activation_notice_dismissed', 1 );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}

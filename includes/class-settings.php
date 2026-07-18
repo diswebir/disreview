@@ -45,6 +45,7 @@ class DisReview_Settings {
 			'custom_css'    => '',
 			'show_count'    => 'yes',
 			'child_override' => 'no',
+			'auto_detect'   => 'yes',
 		);
 	}
 
@@ -72,6 +73,7 @@ class DisReview_Settings {
 		$clean['load_mobile']  = isset( $input['load_mobile'] ) ? 'yes' : 'no';
 		$clean['show_count']   = isset( $input['show_count'] ) ? 'yes' : 'no';
 		$clean['child_override'] = isset( $input['child_override'] ) ? 'yes' : 'no';
+		$clean['auto_detect']   = isset( $input['auto_detect'] ) ? 'yes' : 'no';
 
 		$clean['primary_color'] = sanitize_hex_color( $input['primary_color'] ?? $defaults['primary_color'] );
 		$clean['font_family']   = sanitize_text_field( $input['font_family'] ?? '' );

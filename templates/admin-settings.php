@@ -40,6 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				<h2><?php echo esc_html__( '۲. فعال‌سازی روی پلتفرم‌ها', 'disreview' ); ?></h2>
 				<div class="dr-toggles">
+					<label class="dr-check dr-check-full"><input type="checkbox" name="disreview_settings[auto_detect]" value="yes" <?php checked( $settings['auto_detect'], 'yes' ); ?>> <?php echo esc_html__( 'اعمال خودکار روی ووکامرس/EDD وقتی فعال باشند', 'disreview' ); ?></label>
 					<label class="dr-switch">
 						<input type="checkbox" name="disreview_settings[enable_wp]" value="yes" <?php checked( $settings['enable_wp'], 'yes' ); ?>>
 						<span class="dr-track"></span>
@@ -117,6 +118,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<!-- Live preview column -->
 			<div class="dr-card dr-preview">
 				<h2><?php echo esc_html__( 'پیش‌نمایش زنده', 'disreview' ); ?></h2>
+				<div class="dr-preview-tools">
+					<button type="button" class="dr-view-btn is-active" data-view="desktop" title="دسکتاپ">🖥️</button>
+					<button type="button" class="dr-view-btn" data-view="mobile" title="موبایل">📱</button>
+				</div>
 				<div class="dr-preview-frame disreview-active dr-theme-<?php echo esc_attr( ! empty( $settings['theme'] ) ? $settings['theme'] : 'cards' ); ?>" id="drPreview">
 					<div class="dr-preview-head">
 						<h3><?php echo esc_html__( '۳ دیدگاه', 'disreview' ); ?></h3>

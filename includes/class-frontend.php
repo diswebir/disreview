@@ -27,6 +27,7 @@ class DisReview_Frontend {
 		// Optional average rating badge above WooCommerce / EDD reviews.
 		if ( 'yes' === DisReview::get_setting( 'enable_avg', 'yes' ) ) {
 			add_action( 'woocommerce_before_single_product_summary', array( $this, 'wc_average_badge' ), 15 );
+			add_action( 'woocommerce_review_before', array( $this, 'wc_rating_bars' ), 5 );
 		}
 	}
 
@@ -192,6 +193,39 @@ class DisReview_Frontend {
 			: __( 'دیدگاه', 'disreview' );
 
 		return $title . ' <span class="dr-count-badge" title="' . esc_attr( $count . ' ' . $label ) . '">' . esc_html( $count ) . '</span>';
+	}
+
+
+	/**
+	 * Render a rating breakdown bar above WooCommerce reviews.
+	 */
+	public function wc_rating_bars() {
+		if ( 'yes' !== DisReview::get_setting( 'enable_avg', 'yes' ) ) {
+			return;
+		}
+		if ( ! function_exists( 'wc_get_product' ) ) {
+			return;
+		}
+		$product = wc_get_product( get_the_ID() );
+		if ( ! $product ) {
+			return;
+		}
+		$counts = $product->get_rating_counts();
+		if ( empty( $counts ) ) {
+			return;
+		}
+		$total = array_sum( $counts );
+		echo '<div class="dr-rating-bars" aria-hidden="true">';
+		for ( $i = 5; $i >= 1; $i-- ) {
+			$pct = ! empty( $counts[ $i ] ) ? round( ( $counts[ $i ] / $total ) * 100 ) : 0;
+			printf(
+				'<div class="dr-rating-row"><span class="dr-rating-label">%1$d★</span><span class="dr-rating-track"><span class="dr-rating-fill" style="width:%2$d%%"></span></span><span class="dr-rating-num">%3$d</span></div>',
+				$i,
+				esc_html( $pct ),
+				esc_html( ! empty( $counts[ $i ] ) ? $counts[ $i ] : 0 )
+			);
+		}
+		echo '</div>';
 	}
 
 	/**

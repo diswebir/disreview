@@ -223,7 +223,13 @@ if ( ! class_exists( 'DisReview' ) ) {
 		 * @return bool
 		 */
 		public static function is_wc_enabled() {
-			return self::is_woocommerce_active() && 'yes' === self::get_setting( 'enable_wc', 'no' );
+			if ( ! self::is_woocommerce_active() ) {
+				return false;
+			}
+			if ( 'yes' === self::get_setting( 'auto_detect', 'yes' ) ) {
+				return true;
+			}
+			return 'yes' === self::get_setting( 'enable_wc', 'no' );
 		}
 
 		/**
@@ -232,9 +238,20 @@ if ( ! class_exists( 'DisReview' ) ) {
 		 * @return bool
 		 */
 		public static function is_edd_enabled() {
-			return self::is_edd_active() && 'yes' === self::get_setting( 'enable_edd', 'no' );
+			if ( ! self::is_edd_active() ) {
+				return false;
+			}
+			if ( 'yes' === self::get_setting( 'auto_detect', 'yes' ) ) {
+				return true;
+			}
+			return 'yes' === self::get_setting( 'enable_edd', 'no' );
 		}
 	}
+
+	// Reset the activation notice each time the plugin is activated.
+	register_activation_hook( __FILE__, function () {
+		delete_option( 'disreview_activation_notice_dismissed' );
+	} );
 
 	// Bootstrap.
 	add_action( 'plugins_loaded', array( 'DisReview', 'instance' ), 5 );

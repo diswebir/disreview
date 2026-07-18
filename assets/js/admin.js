@@ -34,6 +34,19 @@
 			updatePreviewVar('--dr-font', $(this).val());
 		});
 
+			// Desktop / mobile preview toggle.
+			$('.dr-view-btn').on('click', function () {
+				var view = $(this).data('view');
+				$('.dr-view-btn').removeClass('is-active');
+				$(this).addClass('is-active');
+				var frame = $('#drPreview');
+				if ('mobile' === view) {
+					frame.addClass('dr-preview-mobile');
+				} else {
+					frame.removeClass('dr-preview-mobile');
+				}
+			});
+
 		function updatePreviewVar(name, value) {
 			if (!value) return;
 			$('#drPreview').get(0).style.setProperty(name, value);

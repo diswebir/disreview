@@ -183,3 +183,12 @@
 	vertical-align: middle;
 	box-shadow: 0 2px 8px rgba(var(--dr-primary-rgb), .35);
 }
+
+/* Rating breakdown bars */
+.disreview-active .dr-rating-bars { margin: 0 0 18px; display: flex; flex-direction: column; gap: 6px; max-width: 320px; }
+.disreview-active .dr-rating-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--dr-muted); }
+.disreview-active .dr-rating-label { width: 22px; color: var(--dr-star, #f59e0b); font-weight: 700; }
+.disreview-active .dr-rating-track { flex: 1; height: 8px; border-radius: 999px; background: rgba(var(--dr-primary-rgb), .12); overflow: hidden; }
+.disreview-active .dr-rating-fill { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--dr-primary), #ec4899); }
+.disreview-active .dr-rating-num { width: 26px; text-align: left; }
+
