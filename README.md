@@ -39,15 +39,13 @@
 | ۱ | پنل ادمین + انتخاب تم | ✅ انجام‌شده | منو، صفحه تنظیمات، پیش‌نمایش زنده، ۶ تم |
 | ۲ | استایل‌دهی خودکار | ✅ انجام‌شده | WP Core / WC / EDD با CSS متغیر |
 | ۳ | بهبود UX | ✅ انجام‌شده | آواتار، ستاره، دکمه‌ها، فرم، RTL |
-| ۴ | قابلیت‌های پیشرفته | 🔜 پیشنهادی | Import/Export JSON، بازنویسی اولویت‌دار، شمارنده نظرات، shortcode نمایش نظرات برتر |
+| ۴ | قابلیت‌های پیشرفته | ✅ انجام‌شده | Import/Export JSON، Shortcode `[disreview_top]`، انیمیشن ورود (IntersectionObserver) |
 
-### قابلیت‌های پیشنهادی برای نسخه‌های بعد (فاز ۴+)
-1. **Import / Export** تنظیمات به صورت JSON
-2. **Override** استایل با اولویت بالاتر (بدون نیاز به ویرایش فایل)
-3. **شمارنده نظرات** استایل‌شده در کنار عنوان
-4. **Shortcode** برای نمایش نظرات برتر (`[disreview_top]`)
-5. **انیمیشن ورود** نظرات هنگام اسکرول (IntersectionObserver)
-6. **پشتیبانی از قالب‌های کودک** (child theme overrides)
+### قابلیت‌های پیشنهادی برای نسخه‌های بعد (فاز ۵+)
+1. **Override** استایل با اولویت بالاتر (بدون نیاز به ویرایش فایل)
+2. **شمارنده نظرات** استایل‌شده در کنار عنوان
+3. **پشتیبانی از قالب‌های کودک** (child theme overrides)
+4. **قالب‌های بیشتر** و ویرایشگر رنگ پیشرفته
 
 ---
 
@@ -59,7 +57,8 @@ disreview/
 ├── includes/
 │   ├── class-settings.php     # ثبت و sanitize تنظیمات
 │   ├── class-admin.php        # منو و صفحه ادمین
-│   └── class-frontend.php     # بارگذاری asset و body class
+│   ├── class-frontend.php     # بارگذاری asset و body class
+│   └── class-tools.php        # Import/Export + shortcode + انیمیشن
 ├── templates/
 │   └── admin-settings.php     # قالب UI پنل ادمین
 ├── assets/
@@ -74,7 +73,9 @@ disreview/
 │   │       ├── theme-dark.css
 │   │       └── theme-gradient.css
 │   └── js/
-│       └── admin.js           # پیش‌نمایش زنده + color picker
+│       ├── admin.js           # پیش‌نمایش زنده + color picker
+│       └── anim.js            # انیمیشن ورود نظرات
+├── uninstall.php              # پاکسازی داده هنگام حذف
 └── README.md
 ```
 

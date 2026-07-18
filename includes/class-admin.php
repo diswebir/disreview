@@ -24,10 +24,9 @@ class DisReview_Admin {
 	/**
 	 * Constructor. Wires up admin hooks.
 	 */
-	public function __construct() {
+		public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
-		add_action( 'admin_init', array( 'DisReview_Settings', 'register' ) );
 	}
 
 	/**

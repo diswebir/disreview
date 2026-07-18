@@ -51,25 +51,27 @@ class DisReview_Settings {
 	 * @param array $input Raw input.
 	 * @return array
 	 */
-	public static function sanitize( $input ) {
-		$defaults = self::defaults();
-		$themes   = array_keys( DisReview::instance()->get_themes() );
+		public static function sanitize( $input ) {
+			$input    = is_array( $input ) ? $input : array();
+			$defaults = self::defaults();
+			$themes   = array_keys( DisReview::instance()->get_themes() );
 
-		$clean = array();
+			$clean = array();
 
-		$clean['theme'] = in_array( $input['theme'], $themes, true ) ? $input['theme'] : $defaults['theme'];
+			$theme = isset( $input['theme'] ) ? sanitize_key( $input['theme'] ) : $defaults['theme'];
+			$clean['theme'] = in_array( $theme, $themes, true ) ? $theme : $defaults['theme'];
 
-		$clean['enable_wp']   = isset( $input['enable_wp'] ) ? 'yes' : 'no';
-		$clean['enable_wc']    = isset( $input['enable_wc'] ) ? 'yes' : 'no';
-		$clean['enable_edd']   = isset( $input['enable_edd'] ) ? 'yes' : 'no';
-		$clean['enable_dark']  = isset( $input['enable_dark'] ) ? 'yes' : 'no';
-		$clean['enable_avg']   = isset( $input['enable_avg'] ) ? 'yes' : 'no';
-		$clean['load_mobile']  = isset( $input['load_mobile'] ) ? 'yes' : 'no';
+			$clean['enable_wp']   = isset( $input['enable_wp'] ) ? 'yes' : 'no';
+			$clean['enable_wc']    = isset( $input['enable_wc'] ) ? 'yes' : 'no';
+			$clean['enable_edd']   = isset( $input['enable_edd'] ) ? 'yes' : 'no';
+			$clean['enable_dark']  = isset( $input['enable_dark'] ) ? 'yes' : 'no';
+			$clean['enable_avg']   = isset( $input['enable_avg'] ) ? 'yes' : 'no';
+			$clean['load_mobile']  = isset( $input['load_mobile'] ) ? 'yes' : 'no';
 
-		$clean['primary_color'] = sanitize_hex_color( $input['primary_color'] ?? $defaults['primary_color'] );
-		$clean['font_family']   = sanitize_text_field( $input['font_family'] ?? '' );
-		$clean['border_radius'] = absint( $input['border_radius'] ?? $defaults['border_radius'] );
+			$clean['primary_color'] = sanitize_hex_color( $input['primary_color'] ?? $defaults['primary_color'] );
+			$clean['font_family']   = sanitize_text_field( $input['font_family'] ?? '' );
+			$clean['border_radius'] = absint( $input['border_radius'] ?? $defaults['border_radius'] );
 
-		return $clean;
-	}
+			return $clean;
+		}
 }

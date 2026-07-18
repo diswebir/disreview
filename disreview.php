@@ -72,9 +72,9 @@ if ( ! class_exists( 'DisReview' ) ) {
 		 */
 		private function __construct() {
 			$this->define_themes();
-			$this->load_textdomain();
 
-			add_action( 'plugins_loaded', array( $this, 'init' ) );
+			add_action( 'init', array( $this, 'init' ) );
+			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		}
 
 		/**
@@ -146,22 +146,28 @@ if ( ! class_exists( 'DisReview' ) ) {
 		}
 
 		/**
-		 * Initialize the plugin: register hooks once WordPress is ready.
+		 * Initialize the plugin: load dependencies and register hooks once WordPress is ready.
 		 */
 		public function init() {
-			// Admin.
+			// Always load dependencies so settings/helpers are available everywhere.
+			require_once self::plugin_path() . 'includes/class-settings.php';
+			require_once self::plugin_path() . 'includes/class-frontend.php';
+			require_once self::plugin_path() . 'includes/class-admin.php';
+			require_once self::plugin_path() . 'includes/class-tools.php';
+
+			// Register settings (safe to call on both admin and frontend).
+			DisReview_Settings::register();
+
+			// Admin UI.
 			if ( is_admin() ) {
-				require_once self::plugin_path() . 'includes/class-admin.php';
 				new DisReview_Admin();
 			}
 
 			// Frontend styling (only when enabled somewhere).
-			require_once self::plugin_path() . 'includes/class-frontend.php';
 			new DisReview_Frontend();
 
-			// Settings registration (used by both admin and frontend).
-			require_once self::plugin_path() . 'includes/class-settings.php';
-			DisReview_Settings::register();
+			// Tools: import/export + shortcode + animation.
+			new DisReview_Tools();
 		}
 
 		/**
@@ -225,3 +231,6 @@ if ( ! class_exists( 'DisReview' ) ) {
 	// Bootstrap.
 	add_action( 'plugins_loaded', array( 'DisReview', 'instance' ), 5 );
 }
+
+// Instantiate immediately so the singleton exists for early consumers.
+DisReview::instance();

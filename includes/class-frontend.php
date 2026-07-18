@@ -23,6 +23,35 @@ class DisReview_Frontend {
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_filter( 'body_class', array( $this, 'add_body_class' ) );
+
+		// Optional average rating badge above WooCommerce / EDD reviews.
+		if ( 'yes' === DisReview::get_setting( 'enable_avg', 'yes' ) ) {
+			add_action( 'woocommerce_before_single_product_summary', array( $this, 'wc_average_badge' ), 15 );
+		}
+	}
+
+	/**
+	 * Render an average rating badge above WooCommerce product reviews.
+	 */
+	public function wc_average_badge() {
+		if ( ! DisReview::is_wc_enabled() || ! function_exists( 'wc_get_product' ) ) {
+			return;
+		}
+		$product = wc_get_product( get_the_ID() );
+		if ( ! $product ) {
+			return;
+		}
+		$avg = $product->get_average_rating();
+		$count = $product->get_rating_count();
+		if ( ! $avg ) {
+			return;
+		}
+		printf(
+			'<div class="dr-avg-badge" aria-label="%1$s">★ %2$s <span class="dr-avg-count">(%3$s)</span></div>',
+			esc_attr__( 'امتیاز میانگین', 'disreview' ),
+			esc_html( $avg ),
+			esc_html( $count )
+		);
 	}
 
 	/**
@@ -64,25 +93,30 @@ class DisReview_Frontend {
 			return;
 		}
 
-		$theme = DisReview::get_setting( 'theme', 'cards' );
-		$themes = DisReview::instance()->get_themes();
-
-		if ( isset( $themes[ $theme ] ) ) {
-			wp_enqueue_style(
-				'disreview-theme',
-				DisReview::plugin_url() . 'assets/css/themes/' . $themes[ $theme ]['file'],
-				array(),
-				DisReview::VERSION
-			);
+		// On mobile, allow admin to skip styling if disabled.
+		if ( wp_is_mobile() && 'no' === DisReview::get_setting( 'load_mobile', 'yes' ) ) {
+			return;
 		}
 
-		// Shared overrides / variables.
+		$theme  = DisReview::get_setting( 'theme', 'cards' );
+		$themes = DisReview::instance()->get_themes();
+
+		// Base first (defines CSS variables), then the theme preset.
 		wp_enqueue_style(
 			'disreview-base',
 			DisReview::plugin_url() . 'assets/css/base.css',
 			array(),
 			DisReview::VERSION
 		);
+
+		if ( isset( $themes[ $theme ] ) ) {
+			wp_enqueue_style(
+				'disreview-theme',
+				DisReview::plugin_url() . 'assets/css/themes/' . $themes[ $theme ]['file'],
+				array( 'disreview-base' ),
+				DisReview::VERSION
+			);
+		}
 
 		$this->add_dynamic_css();
 	}

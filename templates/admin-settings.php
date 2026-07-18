@@ -93,13 +93,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<label class="dr-check"><input type="checkbox" name="disreview_settings[load_mobile]" value="yes" <?php checked( $settings['load_mobile'], 'yes' ); ?>> <?php echo esc_html__( 'اعمال استایل در موبایل', 'disreview' ); ?></label>
 				</div>
 
+				<h2><?php echo esc_html__( '۴. بکاپ تنظیمات (Import / Export)', 'disreview' ); ?></h2>
+				<div class="dr-io">
+					<a class="dr-io-btn" href="<?php echo esc_url( wp_nonce_url( admin_url( 'options-general.php?page=disreview&disreview_export=1' ), 'disreview_export_nonce' ) ); ?>"><?php echo esc_html__( 'دانلود تنظیمات (JSON)', 'disreview' ); ?></a>
+					<form method="post" enctype="multipart/form-data" class="dr-io-form">
+						<?php wp_nonce_field( 'disreview_import_nonce' ); ?>
+						<input type="file" name="disreview_import_file" accept=".json" required>
+						<button type="submit" name="disreview_import" class="dr-io-btn dr-io-btn-alt"><?php echo esc_html__( 'بارگذاری تنظیمات', 'disreview' ); ?></button>
+					</form>
+				</div>
+
 				<?php submit_button( __( 'ذخیره تنظیمات', 'disreview' ), 'dr-btn' ); ?>
 			</div>
 
 			<!-- Live preview column -->
 			<div class="dr-card dr-preview">
 				<h2><?php echo esc_html__( 'پیش‌نمایش زنده', 'disreview' ); ?></h2>
-				<div class="dr-preview-frame disreview-active dr-theme-<?php echo esc_attr( $settings['theme'] ); ?>" id="drPreview">
+				<div class="dr-preview-frame disreview-active dr-theme-<?php echo esc_attr( ! empty( $settings['theme'] ) ? $settings['theme'] : 'cards' ); ?>" id="drPreview">
 					<div class="dr-preview-head">
 						<h3><?php echo esc_html__( '۳ دیدگاه', 'disreview' ); ?></h3>
 						<span class="dr-avg">★ 4.6</span>
