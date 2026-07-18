@@ -31,10 +31,6 @@ class DisReview_Admin {
 	}
 
 	/**
-	 * Add the plugin menu under Settings.
-	 */
-
-	/**
 	 * Show a one-time notice after activation linking to settings.
 	 */
 	public function activation_notice() {
@@ -127,10 +123,10 @@ class DisReview_Admin {
 	 * Render the settings page.
 	 */
 	public function render_page() {
-		update_option( 'disreview_activation_notice_dismissed', 1 );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
+		update_option( 'disreview_activation_notice_dismissed', 1 );
 
 		$settings = wp_parse_args( get_option( DisReview::OPTION_KEY, array() ), DisReview_Settings::defaults() );
 		$themes   = DisReview::instance()->get_themes();

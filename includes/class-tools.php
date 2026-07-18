@@ -20,10 +20,25 @@ class DisReview_Tools {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'handle_export' ) );
 		add_action( 'admin_init', array( $this, 'handle_import' ) );
+		add_action( 'admin_notices', array( $this, 'import_notice' ) );
 		add_shortcode( 'disreview_top', array( $this, 'top_reviews_shortcode' ) );
 
 		// Optional entrance animation on the frontend.
 		add_action( 'wp_enqueue_scripts', array( $this, 'maybe_animation' ), 20 );
+	}
+
+	/**
+	 * Show a success notice after a settings import (survives redirect).
+	 */
+	public function import_notice() {
+		if ( empty( $_GET['disreview_imported'] ) ) {
+			return;
+		}
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		delete_transient( 'disreview_import_notice' );
+		echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'تنظیمات با موفقیت بازیابی شد.', 'disreview' ) . '</p></div>';
 	}
 
 	/**
@@ -68,10 +83,10 @@ class DisReview_Tools {
 
 		$clean = DisReview_Settings::sanitize( $decoded );
 		update_option( DisReview::OPTION_KEY, $clean );
-		add_settings_error( 'disreview_settings_group', 'dr_import_ok', __( 'تنظیمات با موفقیت بازیابی شد.', 'disreview' ), 'updated' );
+		set_transient( 'disreview_import_notice', 'ok', 30 );
 
 		// Redirect to avoid resubmission and persist the admin notice.
-		wp_safe_redirect( admin_url( 'options-general.php?page=disreview&settings-updated=1' ) );
+		wp_safe_redirect( admin_url( 'options-general.php?page=disreview&disreview_imported=1' ) );
 		exit;
 	}
 
@@ -94,18 +109,28 @@ class DisReview_Tools {
 		$count = absint( $atts['count'] );
 		$type  = sanitize_key( $atts['type'] );
 
+		$comment_type = 'comment';
+		if ( 'review' === $type && class_exists( 'WooCommerce' ) ) {
+			$comment_type = 'review';
+		} elseif ( 'download' === $type && DisReview::is_edd_active() ) {
+			$comment_type = 'edd_review';
+		}
+
 		$args = array(
 			'status' => 'approve',
 			'number' => $count,
-			'type'   => 'review' === $type ? 'review' : ( DisReview::is_edd_active() && 'download' === $type ? 'edd_review' : 'comment' ),
-			'meta_query' => array(
-				'relation' => 'OR',
-				array( 'key' => 'rating', 'value' => 0, 'compare' => '>', 'type' => 'NUMERIC' ),
-				array( 'key' => 'rating', 'compare' => 'NOT EXISTS' ),
-			),
+			'type'   => $comment_type,
 			'orderby' => 'comment_karma',
 			'order'   => 'DESC',
 		);
+
+		if ( 'comment' !== $comment_type ) {
+			$args['meta_query'] = array(
+				'relation' => 'OR',
+				array( 'key' => 'rating', 'value' => 0, 'compare' => '>', 'type' => 'NUMERIC' ),
+				array( 'key' => 'rating', 'compare' => 'NOT EXISTS' ),
+			);
+		}
 
 		$comments = get_comments( $args );
 

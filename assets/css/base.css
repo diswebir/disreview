@@ -20,8 +20,8 @@
 .disreview-active #comments,
 .disreview-active #reviews,
 .disreview-active .edd-reviews-area,
-.woocommerce #reviews #comments,
-.woocommerce-tabs .woocommerce-Reviews {
+.disreview-active .woocommerce #reviews #comments,
+.disreview-active .woocommerce-tabs .woocommerce-Reviews {
 	font-family: var(--dr-font);
 	color: var(--dr-text);
 }
@@ -215,3 +215,7 @@
 	border-right: none;
 	border-left: 2px solid rgba(var(--dr-primary-rgb), .18);
 }
+
+/* Entrance animation (frontend) */
+.disreview-active .dr-anim-in { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+.disreview-active .dr-anim-in.is-visible { opacity: 1; transform: none; }

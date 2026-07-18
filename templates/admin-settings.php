@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<!-- Main column -->
 			<div class="dr-card dr-main">
 				<h2><?php echo esc_html__( '۱. انتخاب تم نظرات', 'disreview' ); ?></h2>
-				<p class="dr-hint"><?php echo esc_html__( 'یکی از ۶ تم آماده را انتخاب کنید. تغییرات را در پیش‌نمایش سمت راست ببینید.', 'disreview' ); ?></p>
+				<p class="dr-hint"><?php echo esc_html__( 'یکی از ۸ تم آماده را انتخاب کنید. تغییرات را در پیش‌نمایش سمت راست ببینید.', 'disreview' ); ?></p>
 
 				<div class="dr-theme-grid">
 					<?php foreach ( $themes as $key => $t ) : ?>
@@ -121,16 +121,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h2><?php echo esc_html__( '۴. بکاپ تنظیمات (Import / Export)', 'disreview' ); ?></h2>
 				<div class="dr-io">
 					<a class="dr-io-btn" href="<?php echo esc_url( wp_nonce_url( admin_url( 'options-general.php?page=disreview&disreview_export=1' ), 'disreview_export_nonce' ) ); ?>"><?php echo esc_html__( 'دانلود تنظیمات (JSON)', 'disreview' ); ?></a>
-					<form method="post" enctype="multipart/form-data" class="dr-io-form">
-						<?php wp_nonce_field( 'disreview_import_nonce' ); ?>
-						<input type="file" name="disreview_import_file" accept=".json" required>
-						<button type="submit" name="disreview_import" class="dr-io-btn dr-io-btn-alt"><?php echo esc_html__( 'بارگذاری تنظیمات', 'disreview' ); ?></button>
-					</form>
-				</div>
+					</div>
 
 				<?php submit_button( __( 'ذخیره تنظیمات', 'disreview' ), 'dr-btn' ); ?>
 			</div><!-- /.dr-main -->
-			</div><!-- /.dr-tab-panel settings -->
 
 			<div class="dr-tab-panel" id="dr-tab-help">
 				<div class="dr-card">
@@ -161,31 +155,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<span class="dr-avg">★ 4.6</span>
 					</div>
 
-					<div class="dr-comment">
-						<div class="dr-avatar">س</div>
-						<div class="dr-body">
-							<div class="dr-meta"><strong>سارا</strong> <span class="dr-stars">★★★★★</span></div>
-							<p>عالی بود! کیفیت ساخت واقعا خوبه و ارسال هم سریع انجام شد.</p>
-							<div class="dr-actions"><a href="#">پاسخ</a></div>
+					<div class="comment">
+						<div class="avatar">س</div>
+						<div class="comment-body">
+							<div class="comment-meta"><strong>سارا</strong> <span class="dr-stars">★★★★★</span></div>
+							<p class="comment-content">عالی بود! کیفیت ساخت واقعا خوبه و ارسال هم سریع انجام شد.</p>
+							<div class="reply"><a href="#">پاسخ</a></div>
 						</div>
 					</div>
 
-					<div class="dr-comment">
-						<div class="dr-avatar">م</div>
-						<div class="dr-body">
-							<div class="dr-meta"><strong>محمد</strong> <span class="dr-stars">★★★★☆</span></div>
-							<p>قیمتش نسبت به بقیه منصفانه‌تره، پیشنهاد می‌کنم.</p>
-							<div class="dr-actions"><a href="#">پاسخ</a></div>
+					<div class="comment">
+						<div class="avatar">م</div>
+						<div class="comment-body">
+							<div class="comment-meta"><strong>محمد</strong> <span class="dr-stars">★★★★☆</span></div>
+							<p class="comment-content">قیمتش نسبت به بقیه منصفانه‌تره، پیشنهاد می‌کنم.</p>
+							<div class="reply"><a href="#">پاسخ</a></div>
 						</div>
 					</div>
 
-					<div class="dr-form-preview">
+					<div class="dr-form-preview comment-form-preview">
 						<strong><?php echo esc_html__( 'نظر خود را بنویسید', 'disreview' ); ?></strong>
 						<textarea rows="2" readonly placeholder="<?php echo esc_attr__( 'متن نظر...', 'disreview' ); ?>"></textarea>
 						<button type="button" class="dr-demo-btn"><?php echo esc_html__( 'ارسال نظر', 'disreview' ); ?></button>
 					</div>
 				</div>
 			</div>
-			</div><!-- /.dr-grid -->
+				</div><!-- /.dr-tab-panel settings -->
+		</div><!-- /.dr-grid -->
+	</form>
+
+	<form method="post" enctype="multipart/form-data" class="dr-io-form dr-io-import">
+		<?php wp_nonce_field( 'disreview_import_nonce' ); ?>
+		<input type="file" name="disreview_import_file" accept=".json" required>
+		<button type="submit" name="disreview_import" class="dr-io-btn dr-io-btn-alt"><?php echo esc_html__( 'بارگذاری تنظیمات', 'disreview' ); ?></button>
 	</form>
 </div>
