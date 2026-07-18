@@ -1,0 +1,217 @@
+/* DisReview Base - shared variables & cross-platform comment styling.
+   Applies to: WordPress core comments, WooCommerce reviews, EDD reviews. */
+
+:root {
+	--dr-primary: #4f46e5;
+	--dr-primary-rgb: 79, 70, 229;
+	--dr-radius: 14px;
+	--dr-font: inherit;
+	--dr-bg: #ffffff;
+	--dr-surface: #ffffff;
+	--dr-text: #1f2430;
+	--dr-muted: #6b7280;
+	--dr-border: #e7e9f0;
+	--dr-star: #f59e0b;
+}
+
+/* Scope all rules so we never break unrelated layout. */
+.disreview-active .commentlist,
+.disreview-active ol.commentlist,
+.disreview-active #comments,
+.disreview-active #reviews,
+.disreview-active .edd-reviews-area,
+.woocommerce #reviews #comments,
+.woocommerce-tabs .woocommerce-Reviews {
+	font-family: var(--dr-font);
+	color: var(--dr-text);
+}
+
+/* Comment list container */
+.disreview-active .comment-list,
+.disreview-active ol.commentlist,
+.disreview-active .woocommerce-Reviews #comments ol.commentlist,
+.disreview-active .edd-reviews-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+/* Single comment / review item */
+.disreview-active .comment,
+.disreview-active .review,
+.disreview-active li.comment,
+.disreview-active li.review,
+.disreview-active .edd-review {
+	background: var(--dr-surface);
+	border: 1px solid var(--dr-border);
+	border-radius: var(--dr-radius);
+	padding: 18px 20px;
+	box-shadow: 0 4px 14px rgba(20, 25, 40, .04);
+	transition: transform .18s ease, box-shadow .18s ease;
+}
+.disreview-active .comment:hover,
+.disreview-active .review:hover,
+.disreview-active .edd-review:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 10px 24px rgba(var(--dr-primary-rgb), .12);
+}
+
+/* Avatar */
+.disreview-active .avatar,
+.disreview-active .comment-author img,
+.disreview-active .edd-review-author img {
+	border-radius: 50%;
+	width: 44px;
+	height: 44px;
+	border: 2px solid rgba(var(--dr-primary-rgb), .25);
+}
+
+/* Author meta */
+.disreview-active .comment-author,
+.disreview-active .edd-review-meta .author {
+	font-weight: 700;
+	color: var(--dr-text);
+}
+
+/* Stars (WC / EDD ratings) */
+.disreview-active .star-rating,
+.disreview-active .edd-review-rating,
+.disreview-active .woocommerce-product-rating .star-rating {
+	color: var(--dr-star);
+	font-size: 15px;
+	letter-spacing: 1px;
+}
+
+/* Reply / actions links */
+.disreview-active .reply a,
+.disreview-active .comment-reply-link,
+.disreview-active .edd-review-helpful,
+.disreview-active #respond .form-submit .submit,
+.disreview-active .woocommerce-Reviews .submit {
+	background: var(--dr-primary) !important;
+	color: #fff !important;
+	border: none !important;
+	border-radius: calc(var(--dr-radius) / 1.6) !important;
+	padding: 8px 16px !important;
+	font-weight: 700 !important;
+	cursor: pointer;
+	text-decoration: none;
+	transition: opacity .15s;
+}
+.disreview-active .reply a:hover,
+.disreview-active .comment-reply-link:hover,
+.disreview-active .submit:hover {
+	opacity: .9;
+}
+
+/* Comment form */
+.disreview-active #respond,
+.disreview-active #review_form_wrapper,
+.disreview-active .edd-review-form {
+	background: var(--dr-surface);
+	border: 1px solid var(--dr-border);
+	border-radius: var(--dr-radius);
+	padding: 20px;
+	margin-top: 18px;
+}
+.disreview-active #respond input[type="text"],
+.disreview-active #respond input[type="email"],
+.disreview-active #respond textarea,
+.disreview-active .edd-review-form input,
+.disreview-active .edd-review-form textarea,
+.disreview-active .comment-form input,
+.disreview-active .comment-form textarea {
+	border: 1px solid var(--dr-border) !important;
+	border-radius: calc(var(--dr-radius) / 1.8) !important;
+	padding: 10px 13px !important;
+	width: 100%;
+	font-family: var(--dr-font);
+}
+.disreview-active #respond input:focus,
+.disreview-active #respond textarea:focus,
+.disreview-active .comment-form input:focus,
+.disreview-active .comment-form textarea:focus,
+.disreview-active .edd-review-form input:focus,
+.disreview-active .edd-review-form textarea:focus {
+	outline: none;
+	border-color: var(--dr-primary) !important;
+	box-shadow: 0 0 0 3px rgba(var(--dr-primary-rgb), .15);
+}
+
+/* Average rating badge */
+.disreview-active .woocommerce-product-rating,
+.disreview-active .edd-reviews-summary {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.disreview-active .dr-avg-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin-bottom: 14px;
+	padding: 8px 14px;
+	border-radius: calc(var(--dr-radius) / 1.4);
+	background: rgba(var(--dr-primary-rgb), .1);
+	color: var(--dr-primary);
+	font-weight: 700;
+	font-size: 15px;
+}
+.disreview-active .dr-avg-badge .dr-avg-count {
+	color: var(--dr-muted);
+	font-weight: 500;
+	font-size: 13px;
+}
+
+.disreview-active .dr-count-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 22px;
+	height: 22px;
+	padding: 0 7px;
+	margin-right: 8px;
+	border-radius: 999px;
+	background: var(--dr-primary);
+	color: #fff;
+	font-size: 12px;
+	font-weight: 700;
+	vertical-align: middle;
+	box-shadow: 0 2px 8px rgba(var(--dr-primary-rgb), .35);
+}
+
+/* Rating breakdown bars */
+.disreview-active .dr-rating-bars { margin: 0 0 18px; display: flex; flex-direction: column; gap: 6px; max-width: 320px; }
+.disreview-active .dr-rating-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--dr-muted); }
+.disreview-active .dr-rating-label { width: 22px; color: var(--dr-star, #f59e0b); font-weight: 700; }
+.disreview-active .dr-rating-track { flex: 1; height: 8px; border-radius: 999px; background: rgba(var(--dr-primary-rgb), .12); overflow: hidden; }
+.disreview-active .dr-rating-fill { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--dr-primary), #ec4899); }
+.disreview-active .dr-rating-num { width: 26px; text-align: left; }
+
+
+/* Threaded / nested replies */
+.disreview-active .comment .children,
+.disreview-active .comment ul.children,
+.disreview-active ol.commentlist .children {
+	list-style: none;
+	margin: 14px 0 0;
+	padding: 0 0 0 18px;
+	border-right: 2px solid rgba(var(--dr-primary-rgb), .18);
+}
+.disreview-active .comment .children .comment,
+.disreview-active .comment ul.children .comment {
+	margin-top: 12px;
+}
+.disreview-active .comment .children .children {
+	border-right-color: rgba(var(--dr-primary-rgb), .1);
+}
+[dir="ltr"] .disreview-active .comment .children,
+[dir="ltr"] .disreview-active .comment ul.children {
+	padding: 0 0 0 18px;
+	border-right: none;
+	border-left: 2px solid rgba(var(--dr-primary-rgb), .18);
+}

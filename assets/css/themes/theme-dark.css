@@ -1,0 +1,37 @@
+/* Theme: Dark Elegant - premium dark surface. */
+.disreview-active {
+	--dr-bg: #0f1115;
+	--dr-surface: #1a1d23;
+	--dr-text: #e6e6e6;
+	--dr-muted: #9aa0a6;
+	--dr-border: rgba(255, 255, 255, .1);
+}
+.disreview-active .comment,
+.disreview-active .review,
+.disreview-active .edd-review {
+	background: var(--dr-surface);
+	border: 1px solid var(--dr-border);
+	box-shadow: 0 6px 20px rgba(0, 0, 0, .35);
+}
+.disreview-active .comment:hover,
+.disreview-active .review:hover,
+.disreview-active .edd-review:hover {
+	box-shadow: 0 10px 26px rgba(var(--dr-primary-rgb), .25);
+}
+.disreview-active .avatar {
+	border-color: rgba(var(--dr-primary-rgb), .6);
+}
+.disreview-active #respond,
+.disreview-active #review_form_wrapper,
+.disreview-active .edd-review-form {
+	background: var(--dr-surface);
+}
+.disreview-active #respond input,
+.disreview-active #respond textarea,
+.disreview-active .comment-form input,
+.disreview-active .comment-form textarea,
+.disreview-active .edd-review-form input,
+.disreview-active .edd-review-form textarea {
+	background: #11141a;
+	color: var(--dr-text);
+}

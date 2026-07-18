@@ -1,0 +1,22 @@
+/* Theme: Minimal - clean, lots of whitespace, subtle borders. */
+.disreview-active .comment,
+.disreview-active .review,
+.disreview-active .edd-review {
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid var(--dr-border);
+	border-radius: 0;
+	box-shadow: none;
+	padding: 16px 0;
+}
+.disreview-active .comment:hover,
+.disreview-active .review:hover,
+.disreview-active .edd-review:hover {
+	transform: none;
+	box-shadow: none;
+}
+.disreview-active .avatar {
+	border-radius: 50%;
+	border: none;
+	filter: grayscale(.2);
+}

@@ -1,0 +1,25 @@
+/* Theme: Cards - solid elevated cards with gradient accent header. */
+.disreview-active .comment,
+.disreview-active .review,
+.disreview-active .edd-review {
+	border: none;
+	box-shadow: 0 8px 26px rgba(20, 25, 40, .08);
+	position: relative;
+	overflow: hidden;
+}
+.disreview-active .comment::before,
+.disreview-active .review::before,
+.disreview-active .edd-review::before {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 4px;
+	background: linear-gradient(90deg, var(--dr-primary), #7c3aed);
+}
+.disreview-active .avatar {
+	box-shadow: 0 4px 12px rgba(var(--dr-primary-rgb), .35);
+}
+.disreview-active .reply a,
+.disreview-active .submit {
+	background: linear-gradient(135deg, var(--dr-primary), #7c3aed) !important;
+}

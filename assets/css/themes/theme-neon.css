@@ -1,0 +1,31 @@
+/* Theme: Neon - glowing borders & vivid accents on dark canvas. */
+.disreview-active {
+	--dr-bg: #0b0e14;
+	--dr-surface: #121621;
+	--dr-text: #e8ecf4;
+	--dr-muted: #8b93a7;
+	--dr-border: rgba(0, 255, 200, .25);
+}
+.disreview-active .comment,
+.disreview-active .review,
+.disreview-active .edd-review {
+	background: var(--dr-surface);
+	border: 1px solid rgba(0, 255, 200, .35);
+	box-shadow: 0 0 14px rgba(0, 255, 200, .18), inset 0 0 8px rgba(0, 255, 200, .06);
+}
+.disreview-active .comment:hover,
+.disreview-active .review:hover,
+.disreview-active .edd-review:hover {
+	box-shadow: 0 0 22px rgba(0, 255, 200, .4);
+}
+.disreview-active .avatar {
+	border: 2px solid #00ffc8;
+	box-shadow: 0 0 10px rgba(0, 255, 200, .5);
+}
+.disreview-active .reply a,
+.disreview-active .submit {
+	background: #00ffc8 !important;
+	color: #06231c !important;
+	box-shadow: 0 0 12px rgba(0, 255, 200, .5);
+}
+.disreview-active .star-rating { color: #00ffc8; }
