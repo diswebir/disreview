@@ -126,6 +126,14 @@ if ( ! class_exists( 'DisReview' ) ) {
 					'label' => __( 'گرادیانی (Gradient)', 'disreview' ),
 					'file'  => 'theme-gradient.css',
 				),
+				'neon'         => array(
+					'label' => __( 'نئون (Neon)', 'disreview' ),
+					'file'  => 'theme-neon.css',
+				),
+				'outline'      => array(
+					'label' => __( 'خطی (Outline)', 'disreview' ),
+					'file'  => 'theme-outline.css',
+				),
 			);
 		}
 

@@ -1,0 +1,33 @@
+/* Theme: Outline - clean bordered cards, primary color accents only. */
+.disreview-active .comment,
+.disreview-active .review,
+.disreview-active .edd-review {
+	background: var(--dr-surface, #fff);
+	border: 2px solid var(--dr-primary);
+	border-radius: var(--dr-radius);
+	box-shadow: none;
+}
+.disreview-active .comment:hover,
+.disreview-active .review:hover,
+.disreview-active .edd-review:hover {
+	transform: none;
+	box-shadow: 0 6px 18px rgba(var(--dr-primary-rgb), .18);
+}
+.disreview-active .avatar {
+	border: 2px solid var(--dr-primary);
+}
+.disreview-active .comment-author,
+.disreview-active .edd-review-meta .author {
+	color: var(--dr-primary);
+}
+.disreview-active .reply a,
+.disreview-active .submit {
+	background: transparent !important;
+	color: var(--dr-primary) !important;
+	border: 2px solid var(--dr-primary) !important;
+}
+.disreview-active .reply a:hover,
+.disreview-active .submit:hover {
+	background: var(--dr-primary) !important;
+	color: #fff !important;
+}

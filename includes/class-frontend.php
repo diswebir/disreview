@@ -110,15 +110,36 @@ class DisReview_Frontend {
 		);
 
 		if ( isset( $themes[ $theme ] ) ) {
+			$src = DisReview::plugin_url() . 'assets/css/themes/' . $themes[ $theme ]['file'];
+
+			// Allow child theme to override the preset file.
+			if ( 'yes' === DisReview::get_setting( 'child_override', 'no' ) ) {
+				$child = get_stylesheet_directory() . '/disreview/theme-' . $theme . '.css';
+				if ( file_exists( $child ) ) {
+					$src = get_stylesheet_directory_uri() . '/disreview/theme-' . $theme . '.css';
+				}
+			}
+
 			wp_enqueue_style(
 				'disreview-theme',
-				DisReview::plugin_url() . 'assets/css/themes/' . $themes[ $theme ]['file'],
+				$src,
 				array( 'disreview-base' ),
 				DisReview::VERSION
 			);
 		}
 
 		$this->add_dynamic_css();
+
+		// High-priority custom CSS override (last, so it wins).
+		$custom = DisReview::get_setting( 'custom_css', '' );
+		if ( $custom ) {
+			wp_add_inline_style( 'disreview-theme', $custom );
+		}
+
+		// Styled comment counter near the title.
+		if ( 'yes' === DisReview::get_setting( 'show_count', 'yes' ) ) {
+			add_filter( 'the_title', array( $this, 'append_comment_count' ), 10, 2 );
+		}
 	}
 
 	/**
@@ -144,6 +165,33 @@ class DisReview_Frontend {
 		}
 
 		wp_add_inline_style( 'disreview-base', $css );
+	}
+
+	/**
+	 * Append a styled comment count badge to post/product titles.
+	 *
+	 * @param string $title The title.
+	 * @param int    $id    Post ID.
+	 * @return string
+	 */
+	public function append_comment_count( $title, $id = 0 ) {
+		if ( ! is_singular() || ! in_the_loop() || ! is_main_query() ) {
+			return $title;
+		}
+		if ( ! DisReview::is_wp_core_enabled() && ! DisReview::is_wc_enabled() && ! DisReview::is_edd_enabled() ) {
+			return $title;
+		}
+
+		$count = get_comments_number( $id );
+		if ( ! $count ) {
+			return $title;
+		}
+
+		$label = DisReview::is_wc_enabled() && function_exists( 'is_product' ) && is_product()
+			? __( 'نظر', 'disreview' )
+			: __( 'دیدگاه', 'disreview' );
+
+		return $title . ' <span class="dr-count-badge" title="' . esc_attr( $count . ' ' . $label ) . '">' . esc_html( $count ) . '</span>';
 	}
 
 	/**

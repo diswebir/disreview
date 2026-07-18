@@ -85,12 +85,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<label for="dr-font"><?php echo esc_html__( 'فونت سفارشی (اختیاری)', 'disreview' ); ?></label>
 						<input type="text" id="dr-font" name="disreview_settings[font_family]" placeholder="مثلاً: Vazirmatn, Tahoma, sans-serif" value="<?php echo esc_attr( $settings['font_family'] ); ?>">
 					</div>
+
+					<div class="dr-field dr-field-full">
+						<label for="dr-custom"><?php echo esc_html__( 'کد CSS سفارشی (اولویت بالا)', 'disreview' ); ?></label>
+						<textarea id="dr-custom" name="disreview_settings[custom_css]" rows="4" placeholder=".disreview-active .comment { ... }"><?php echo esc_textarea( $settings['custom_css'] ); ?></textarea>
+					</div>
 				</div>
 
 				<div class="dr-extra-toggles">
 					<label class="dr-check"><input type="checkbox" name="disreview_settings[enable_avg]" value="yes" <?php checked( $settings['enable_avg'], 'yes' ); ?>> <?php echo esc_html__( 'نمایش امتیاز میانگین', 'disreview' ); ?></label>
 					<label class="dr-check"><input type="checkbox" name="disreview_settings[enable_dark]" value="yes" <?php checked( $settings['enable_dark'], 'yes' ); ?>> <?php echo esc_html__( 'حالت تاریک خودکار (بر اساس سیستم)', 'disreview' ); ?></label>
 					<label class="dr-check"><input type="checkbox" name="disreview_settings[load_mobile]" value="yes" <?php checked( $settings['load_mobile'], 'yes' ); ?>> <?php echo esc_html__( 'اعمال استایل در موبایل', 'disreview' ); ?></label>
+					<label class="dr-check"><input type="checkbox" name="disreview_settings[show_count]" value="yes" <?php checked( $settings['show_count'], 'yes' ); ?>> <?php echo esc_html__( 'نمایش شمارنده نظرات در کنار عنوان', 'disreview' ); ?></label>
+					<label class="dr-check"><input type="checkbox" name="disreview_settings[child_override]" value="yes" <?php checked( $settings['child_override'], 'no' ); ?>> <?php echo esc_html__( 'اجازه بازنویسی تم توسط قالب کودک', 'disreview' ); ?></label>
+					<p class="dr-note"><?php echo esc_html__( 'برای بازنویسی، فایل را در مسیر قالب‌کودک/DisReview/theme-نام‌تم.css قرار دهید.', 'disreview' ); ?></p>
 				</div>
 
 				<h2><?php echo esc_html__( '۴. بکاپ تنظیمات (Import / Export)', 'disreview' ); ?></h2>
